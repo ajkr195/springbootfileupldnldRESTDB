@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<title>ListOfFiles</title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+<div class="container">
+<a class="btn btn-sm btn-primary" th:href="@{/}">Upload Files</a>
+	<div class="card">
+		<div class="card-header">DB Files</div>
+		<div class="card-body">
+			<h5 class="card-title">File List</h5>
+			<table id="tableitems2" class="table table-bordered table-hover"
+		style="width: 100%">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>fileName</th>
+				<th>fileType</th>
+				<th>Download</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="myfile : ${allfiles}">
+				<td th:text="${myfile.id}"></td>
+				<td th:text="${myfile.fileName}"></td>
+				<td th:text="${myfile.fileType}"></td>
+				<td><a class="btn btn-sm btn-primary" th:href="@{/downloadFile/{id}(id=${myfile.id})}">Download</a></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>Id</th>
+				<th>fileName</th>
+				<th>fileType</th>
+				<th>Download</th>
+			</tr>
+		</tfoot>
+	</table>
+		</div>
+	</div>
+
+</div>
+	
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+</body>
+</html>

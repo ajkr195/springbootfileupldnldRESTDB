@@ -23,6 +23,8 @@ function uploadSingleFile(file) {
         if(xhr.status == 200) {
             singleFileUploadError.style.display = "none";
             singleFileUploadSuccess.innerHTML = "<p>File Uploaded Successfully.</p><p>DownloadUrl : <a href='" + response.fileDownloadUri + "' target='_blank'>" + response.fileDownloadUri + "</a></p>";
+            $("#singleFileUploadInput").val(null); 
+            $("#multipleFileUploadInput").val(null);
             singleFileUploadSuccess.style.display = "block";
         } else {
             singleFileUploadSuccess.style.display = "none";
@@ -48,6 +50,8 @@ function uploadMultipleFiles(files) {
         if(xhr.status == 200) {
             multipleFileUploadError.style.display = "none";
             var content = "<p>All Files Uploaded Successfully</p>";
+            $("#singleFileUploadInput").val(null); 
+            $("#multipleFileUploadInput").val(null);
             for(var i = 0; i < response.length; i++) {
                 content += "<p>DownloadUrl : <a href='" + response[i].fileDownloadUri + "' target='_blank'>" + response[i].fileDownloadUri + "</a></p>";
             }

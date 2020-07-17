@@ -1,4 +1,4 @@
-package com.example.filedemo.model;
+package com.spring.boot.rocks.model;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "files")
-public class DBFile {
+public class AppUserDocument {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -29,11 +29,11 @@ public class DBFile {
 	@Lob
 	private byte[] data;
 
-	public DBFile() {
+	public AppUserDocument() {
 
 	}
 
-	public DBFile(String id, String fileName, String fileType, String createdBy, Date dateCreated, byte[] data) {
+	public AppUserDocument(String id, String fileName, String fileType, String createdBy, Date dateCreated, byte[] data) {
 		super();
 		this.id = id;
 		this.fileName = fileName;
@@ -43,7 +43,7 @@ public class DBFile {
 		this.data = data;
 	}
 	
-	public DBFile(String fileName, String fileType, String createdBy, Date dateCreated, byte[] data) {
+	public AppUserDocument(String fileName, String fileType, String createdBy, Date dateCreated, byte[] data) {
 		super();
 		this.fileName = fileName;
 		this.fileType = fileType;

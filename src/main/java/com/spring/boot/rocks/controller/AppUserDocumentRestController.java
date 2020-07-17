@@ -1,8 +1,9 @@
-package com.example.filedemo.controller;
+package com.spring.boot.rocks.controller;
 
-import com.example.filedemo.model.DBFile;
-import com.example.filedemo.payload.UploadFileResponse;
-import com.example.filedemo.service.DBFileStorageService;
+import com.spring.boot.rocks.model.AppUserDocument;
+import com.spring.boot.rocks.payload.AppUserDocumentUploadResponse;
+import com.spring.boot.rocks.service.AppUserDocumentStorageService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +21,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class FileController {
+public class AppUserDocumentRestController {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppUserDocumentRestController.class);
 
     @Autowired
-    private DBFileStorageService dbFileStorageService;
+    private AppUserDocumentStorageService appUserDocumentStorageService;
 
     
-    
-    
-    
     @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        DBFile dbFile = dbFileStorageService.storeFile(file);
+    public AppUserDocumentUploadResponse uploadFile(@RequestParam("file") MultipartFile file) {
+        AppUserDocument dbFile = appUserDocumentStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(dbFile.getId())
                 .toUriString();
 
-        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
+        return new AppUserDocumentUploadResponse(dbFile.getFileName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
 
     @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+    public List<AppUserDocumentUploadResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -55,12 +53,12 @@ public class FileController {
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
         // Load file from database
-        DBFile dbFile = dbFileStorageService.getFile(fileId);
+        AppUserDocument appUserDocument = appUserDocumentStorageService.getFile(fileId);
 
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(dbFile.getFileType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
-                .body(new ByteArrayResource(dbFile.getData()));
+                .contentType(MediaType.parseMediaType(appUserDocument.getFileType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + appUserDocument.getFileName() + "\"")
+                .body(new ByteArrayResource(appUserDocument.getData()));
     }
 
 }

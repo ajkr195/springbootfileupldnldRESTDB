@@ -1,4 +1,4 @@
-package com.example.filedemo.service;
+package com.spring.boot.rocks.service;
 
 import java.io.IOException;
 import java.util.Date;
@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.filedemo.exception.FileStorageException;
-import com.example.filedemo.exception.MyFileNotFoundException;
-import com.example.filedemo.model.DBFile;
-import com.example.filedemo.repository.DBFileRepository;
+import com.spring.boot.rocks.exception.FileStorageException;
+import com.spring.boot.rocks.exception.MyFileNotFoundException;
+import com.spring.boot.rocks.model.AppUserDocument;
+import com.spring.boot.rocks.repository.AppUserDocumentRepository;
 
 @Service
-public class DBFileStorageService {
+public class AppUserDocumentStorageService {
 
     @Autowired
-    private DBFileRepository dbFileRepository;
+    private AppUserDocumentRepository dbFileRepository;
 
-    public DBFile storeFile(MultipartFile file) {
+    public AppUserDocument storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
@@ -28,7 +28,7 @@ public class DBFileStorageService {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            DBFile dbFile = new DBFile(fileName, file.getContentType(), "MyNameGoesHere", new Date(),file.getBytes());
+            AppUserDocument dbFile = new AppUserDocument(fileName, file.getContentType(), "MyNameGoesHere", new Date(),file.getBytes());
 
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {
@@ -36,7 +36,7 @@ public class DBFileStorageService {
         }
     }
 
-    public DBFile getFile(String fileId) {
+    public AppUserDocument getFile(String fileId) {
         return dbFileRepository.findById(fileId)
                 .orElseThrow(() -> new MyFileNotFoundException("File not found with id " + fileId));
     }

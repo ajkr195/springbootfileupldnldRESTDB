@@ -1,12 +1,12 @@
-package com.example.filedemo;
+package com.spring.boot.rocks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FileDemoApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FileDemoApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

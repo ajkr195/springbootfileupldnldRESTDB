@@ -24,9 +24,12 @@
 							<th>Id</th>
 							<th>fileName</th>
 							<th>fileType</th>
-							<th>createdBy</th>
-							<th>dateCreated</th>
-							<th>Download</th>
+							<th>fileSize</th>
+							<th>CreatedBy</th>
+							<th>DateCreated</th>
+							<th>ModifiedBy</th>
+							<th>LastModified</th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,8 +38,11 @@
 							<td th:text="${myfile.id}"></td>
 							<td th:text="${myfile.fileName}"></td>
 							<td th:text="${myfile.fileType}"></td>
+							<td th:text="${myfile.fileSize / 1024 + ' kb'}"></td>
 							<td th:text="${myfile.createdBy}"></td>
-							<td th:text="${myfile.dateCreated}"></td>
+							<td th:text="${myfile.createdDate}"></td>
+							<td th:text="${myfile.lastModifiedBy}"></td>
+							<td th:text="${myfile.lastModifiedDate}"></td>
 							<td><a class="btn btn-sm btn-primary"
 								th:href="@{/downloadFile/{id}(id=${myfile.id})}">Download</a></td>
 						</tr>
@@ -47,9 +53,12 @@
 							<th>Id</th>
 							<th>fileName</th>
 							<th>fileType</th>
-							<th>createdBy</th>
-							<th>dateCreated</th>
-							<th>Download</th>
+							<th>fileSize</th>
+							<th>CreatedBy</th>
+							<th>DateCreated</th>
+							<th>ModifiedBy</th>
+							<th>LastModified</th>
+							<th>Actions</th>
 						</tr>
 					</tfoot>
 				</table>

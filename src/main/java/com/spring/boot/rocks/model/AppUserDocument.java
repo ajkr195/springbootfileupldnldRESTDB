@@ -1,102 +1,54 @@
 package com.spring.boot.rocks.model;
 
-import java.util.Date;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "files")
-public class AppUserDocument {
+public class AppUserDocument extends Auditable<String>  {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
+	@Column(name = "filename")
 	private String fileName;
 
+	@Column(name = "filetype")
 	private String fileType;
-
-	private String createdBy;
-
-	private Date dateCreated;
+	
+	@Column(name = "filesize")
+	private long fileSize;
 
 	@Lob
+	@Column(name = "filedata")
 	private byte[] data;
-
-	public AppUserDocument() {
-
-	}
-
-	public AppUserDocument(String id, String fileName, String fileType, String createdBy, Date dateCreated, byte[] data) {
-		super();
-		this.id = id;
-		this.fileName = fileName;
-		this.fileType = fileType;
-		this.createdBy = createdBy;
-		this.dateCreated = dateCreated;
-		this.data = data;
-	}
 	
-	public AppUserDocument(String fileName, String fileType, String createdBy, Date dateCreated, byte[] data) {
+	@Version
+    private Integer version;
+
+
+	public AppUserDocument(String fileName, String fileType, long fileSize, byte[] data) {
 		super();
 		this.fileName = fileName;
 		this.fileType = fileType;
-		this.createdBy = createdBy;
-		this.dateCreated = dateCreated;
+		this.fileSize = fileSize;
 		this.data = data;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFileType() {
-		return fileType;
-	}
-
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public byte[] getData() {
-		return data;
-	}
-
-	public void setData(byte[] data) {
-		this.data = data;
-	}
 }

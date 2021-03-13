@@ -28,7 +28,7 @@ public class AppUserDocumentStorageService {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            AppUserDocument dbFile = new AppUserDocument(fileName, file.getContentType(), "MyNameGoesHere", new Date(),file.getBytes());
+            AppUserDocument dbFile = new AppUserDocument(fileName, file.getContentType(), file.getSize(), file.getBytes());
 
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {
